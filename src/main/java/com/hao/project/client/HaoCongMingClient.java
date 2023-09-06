@@ -23,6 +23,8 @@ public class HaoCongMingClient {
 
     public String doChat(Msg msg) {
         String json = JSONUtil.toJsonStr(msg);
+        Map<String, String> headerMap = getHeaderMap();
+        headerMap.put("consume","1");
         HttpResponse httpResponse = HttpRequest.post(URL+"/chat")
                 .addHeaders(getHeaderMap())
                 .body(json)
@@ -32,8 +34,10 @@ public class HaoCongMingClient {
 
     public String getImage(Msg msg) {
         String json = JSONUtil.toJsonStr(msg);
+        Map<String, String> headerMap = getHeaderMap();
+        headerMap.put("consume","5");
         HttpResponse httpResponse = HttpRequest.post(URL+"/image")
-                .addHeaders(getHeaderMap())
+                .addHeaders(headerMap)
                 .body(json)
                 .execute();
         return httpResponse.body();
